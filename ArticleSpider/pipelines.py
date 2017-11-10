@@ -8,6 +8,8 @@
 from scrapy.pipelines.images import ImagesPipeline
 import codecs
 import json
+import MySQLdb
+
 class ArticlespiderPipeline(object):
     def process_item(self, item, spider):
         return item
@@ -15,9 +17,10 @@ class ArticlespiderPipeline(object):
 
 class ArticleImagePipeline(ImagesPipeline):
     def item_completed(self, results, item, info):
-        for ok, value in results:
-            image_path = value["path"]
-        item["front_image_path"] = image_path
+        if "front_image_path" in item:
+            for ok, value in results:
+                image_path = value["path"]
+            item["front_image_path"] = image_path
         return item
 
 
@@ -32,5 +35,9 @@ class JsonWithEncodingPipeline(object):
 
     def spider_closed(self):
         self.file.close()
+
+class MysqlPipeline(object):
+    def __init__(self):
+        self.conn = MySQLdb.connect()
 
 
