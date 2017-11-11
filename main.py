@@ -5,5 +5,6 @@ import sys
 
 main_path = os.path.dirname(os.path.abspath(__file__)) # 获取工程目录
 sys.path.append(main_path)
-execute(['scrapy', 'crawl', 'jobbole'])
+# execute(['scrapy', 'crawl', 'jobbole'])
+execute(['scrapy', 'crawl', 'zhihu'])
 # print(main_path)
